@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<calculoCustom>
+    <amplitude>0.0</amplitude>
+    <coeficienteDeVariacao>0.0</coeficienteDeVariacao>
+    <dados>10</dados>
+    <dados>20</dados>
+    <desvioPadrao>0.0</desvioPadrao>
+    <media>0.0</media>
+    <mediana>0.0</mediana>
+    <moda>0.0</moda>
+    <variancia>0.0</variancia>
+</calculoCustom>
