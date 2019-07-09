@@ -3,18 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Bibliotecas.MVC.DAO;
+package BIBLIOTECAS.MVC.DAO;
 
-import Bibliotecas.MVC.DTO.Calculo;
-import Bibliotecas.MVC.DTO.CalculoCustom;
+import BIBLIOTECAS.MVC.DTO.Calculo;
 
 /**
  *
  * @author rodriguh
- * @param <e>
+ 
  */
 public interface ICalculo {
     
-    public void exportar(CalculoCustom a, String filename);
-    public CalculoCustom importar(String path);
+    public void exportar(Calculo a, String filename);
+    public Calculo importar(String path);
 }

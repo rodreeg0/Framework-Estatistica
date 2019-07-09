@@ -3,27 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Bibliotecas.MVC.BO;
+package BIBLIOTECAS.MVC.BO;
 
-import Bibliotecas.MVC.DAO.CalculoDAOJSON;
-import Bibliotecas.MVC.DAO.CalculoDAOXML;
-import Bibliotecas.MVC.DAO.ICalculo;
-import Bibliotecas.MVC.DTO.Calculo;
-import Bibliotecas.MVC.DTO.CalculoCustom;
+import BIBLIOTECAS.MVC.DAO.CalculoDAOJSON;
+import BIBLIOTECAS.MVC.DAO.CalculoDAOXML;
+import BIBLIOTECAS.MVC.DAO.ICalculo;
+import BIBLIOTECAS.MVC.DTO.Calculo;
 
 /**
  *
  * @author rodriguh
- * @param <T>
  */
 public class CalculoBO {
 
-    ICalculo persistencia;
-
-    public CalculoBO(){
-        
-    }
     
+    ICalculo persistencia;
+    
+    /**
+     * Construtor, inicializa tipo de persistencia
+     * @param tipopersistencia - Tipo de persistencia desejado, JSON ou XML.
+     */
     public CalculoBO(String tipopersistencia) {
         if ("XML".equalsIgnoreCase(tipopersistencia)) {
             persistencia = new CalculoDAOXML();
@@ -32,6 +31,9 @@ public class CalculoBO {
         }
     }
 
+    /** Seta o tipo de persistencia desejado
+     * @param tipo - Tipo de persistencia desejado, JSON ou XML.
+     */
     public void setPersistencia(String tipo) {
         if ("XML".equalsIgnoreCase(tipo)) {
             if (!persistencia.getClass().isInstance(new CalculoDAOXML())) {
@@ -44,11 +46,22 @@ public class CalculoBO {
         }
     }
 
-    public CalculoCustom importar(String path) {
+    /**
+     * 
+     * @param path - Caminho do arquivo a ser importado, método é invocado pelo framework e invoca
+     * o método importar da classe DAO (persistencia)
+     * @return - Objeto calculo.
+     */
+    public Calculo importar(String path) {
         return persistencia.importar(path);
     }
 
-    public void exportar(CalculoCustom a, String filename) {
-        persistencia.exportar(a, filename);
+    /**
+     * Invoda o método "exportar" da classe DAO (persistencia)
+     * @param calculo - Objeto a ser salvo na persistencia
+     * @param filename - Nome do arquivo a ser salvo
+     */
+    public void exportar(Calculo calculo, String filename) {
+        persistencia.exportar(calculo, filename);
     }
 }

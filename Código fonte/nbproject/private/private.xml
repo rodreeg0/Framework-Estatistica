@@ -3,18 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/rodriguh/Documents/NetBeansProjects/FrameworkEstatistica/src/MVC/BO/CalculoBO.java</file>
-            <file>file:/C:/Users/rodriguh/Documents/NetBeansProjects/FrameworkEstatistica/src/MVC/BO/NewClass.java</file>
-            <file>file:/C:/Users/rodriguh/Documents/NetBeansProjects/FrameworkEstatistica/src/MVC/DAO/CalculoDAOXML.java</file>
+            <file>file:/C:/Users/rodriguh/Documents/NetBeansProjects/FrameworkEstatistica/src/BIBLIOTECAS/MVC/DAO/CalculoDAOJSON.java</file>
+            <file>file:/C:/Users/rodriguh/Documents/NetBeansProjects/FrameworkEstatistica/src/BIBLIOTECAS/Outros/TabelaFrequencia.java</file>
+            <file>file:/C:/Users/rodriguh/Documents/NetBeansProjects/FrameworkEstatistica/src/BIBLIOTECAS/MVC/BO/CalculoBO.java</file>
             <file>file:/C:/Users/rodriguh/Documents/NetBeansProjects/FrameworkEstatistica/src/Main.java</file>
-            <file>file:/C:/Users/rodriguh/Documents/NetBeansProjects/FrameworkEstatistica/src/MVC/DTO/TabelaFrequencia.java</file>
-            <file>file:/C:/Users/rodriguh/Documents/NetBeansProjects/FrameworkEstatistica/src/MVC/DTO/HTMLViewer.java</file>
-            <file>file:/C:/Users/rodriguh/Documents/NetBeansProjects/FrameworkEstatistica/src/MVC/DTO/GraficoLinha.java</file>
-            <file>file:/C:/Users/rodriguh/Documents/NetBeansProjects/FrameworkEstatistica/src/MVC/DTO/Framework.java</file>
-            <file>file:/C:/Users/rodriguh/Documents/NetBeansProjects/FrameworkEstatistica/src/MVC/DAO/CalculoDAOJSON.java</file>
-            <file>file:/C:/Users/rodriguh/Documents/NetBeansProjects/FrameworkEstatistica/src/MVC/DTO/Calculo.java</file>
-            <file>file:/C:/Users/rodriguh/Documents/NetBeansProjects/FrameworkEstatistica/src/MVC/DTO/IGrafico.java</file>
-            <file>file:/C:/Users/rodriguh/Documents/NetBeansProjects/FrameworkEstatistica/src/MVC/DTO/NewJFrame.java</file>
+            <file>file:/C:/Users/rodriguh/Documents/NetBeansProjects/FrameworkEstatistica/src/BIBLIOTECAS/Outros/HTMLViewer.java</file>
         </group>
     </open-files>
 </project-private>

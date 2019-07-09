@@ -1,17 +1,13 @@
 
-import Bibliotecas.MVC.BO.CalculoBO;
-import Bibliotecas.MVC.DTO.Calculo;
-import Bibliotecas.MVC.DTO.CalculoCustom;
-import Bibliotecas.Uteis.HTMLViewer;
-import Bibliotecas.Uteis.TabelaFrequencia;
+import BIBLIOTECAS.MVC.BO.CalculoBO;
+import BIBLIOTECAS.MVC.DTO.Calculo;
+import BIBLIOTECAS.Outros.HTMLViewer;
+import BIBLIOTECAS.Outros.TabelaFrequencia;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.embed.swing.JFXPanel;
-import javafx.stage.FileChooser;
 import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,32 +19,30 @@ import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author rodriguh
- * @param <T> - subclasse da classe calculo
  * @param <E> - tipo do número. (inteiro, float, double...)
  */
-public class Framework<T extends Calculo, E extends Number> {
+public class Framework< E extends Number> {
 
-    protected CalculoCustom calculo;
+    protected Calculo calculo;
     protected TabelaFrequencia tabela;
     protected HTMLViewer html;
     protected CalculoBO calcBO;
     private List<Double> dados;
 
-    public Framework(CalculoCustom clazz) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        this.calculo = clazz;
-        this.initAttributes();
-    }
-
-    public void initAttributes() {
+    /**
+     * Construtor - Instancia novo calculo e outros atributos.
+     */
+    public Framework() {
+        this.calculo = new Calculo();
         dados = new ArrayList<>();
         calcBO = new CalculoBO("JSON");
         html = new HTMLViewer();
     }
 
-    public void realizarCalculo() {
-        calculo.realizarCalculo();
-    }
-
+    /**
+     *
+     * @param lista - lista com dados definidos pelo usuário
+     */
     public void setDados(List<E> lista) {
         for (E l : lista) {
             this.dados.add(Double.parseDouble(String.valueOf(l)));
@@ -56,6 +50,16 @@ public class Framework<T extends Calculo, E extends Number> {
         calculo.setDados(dados);
     }
 
+    /**
+     * invoca o método da classe cálculo
+     */
+    public void realizarCalculo() {
+        calculo.realizarCalculo();
+    }
+
+    /**
+     * Método utilizado para importar um objeto cálculo salvo em persistencia
+     */
     public void importarCalculo() {
         JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File("ArquivosExportados"));
@@ -73,17 +77,37 @@ public class Framework<T extends Calculo, E extends Number> {
             calculo = calcBO.importar(file.getAbsolutePath());
             calculo.realizarCalculo();
         }
+        this.dados = calculo.getDados();
     }
 
+    /**
+     *
+     * @param filename - Nome do arquivo a ser exportado
+     * @param persistencia - Tipo de persistencia (XML ou JSON)
+     */
+    public void exportarCalculo(String filename, String persistencia) {
+        calcBO.setPersistencia(persistencia);
+        calcBO.exportar(calculo, filename);
+    }
+
+    /**
+     * Invoca o método da tabela de frequencia
+     * @return - Modelo de tabela, pronto para setar na view do main
+     */
     public DefaultTableModel gerarTabelaDeFreq() {
         this.tabela = new TabelaFrequencia(dados);
 
-        return this.tabela.dtm;
+        return this.tabela.modeloTabela;
     }
 
+    /**
+     * Invoca o método da classe grafico e da classe responsavel por gerar de gerar painel html
+     * @param htmlFileName - Nome do arquivo html a ser salvo.
+     * @return - Painel com gráfico gerado, já pronto para usuário inserir no frame.
+     */
     public JFXPanel gerarGrafico(String htmlFileName) {
         try {
-            return html.generateHTML(this.tabela.grafico.drawChart(tabela.dtm), "teste");
+            return html.generateHTML(this.tabela.grafico.drawChart(tabela.modeloTabela), htmlFileName);
         } catch (IOException ex) {
             return null;
         }

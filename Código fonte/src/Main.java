@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import Bibliotecas.MVC.DTO.Calculo;
-import Bibliotecas.MVC.DTO.CalculoCustom;
-import Bibliotecas.Uteis.GraficoColuna;
-import Bibliotecas.Uteis.GraficoLinha;
-import Bibliotecas.Uteis.GraficoPizza;
+import BIBLIOTECAS.MVC.DTO.Calculo;
+import BIBLIOTECAS.Outros.GraficoColuna;
+import BIBLIOTECAS.Outros.GraficoLinha;
+import BIBLIOTECAS.Outros.GraficoPizza;
+import BIBLIOTECAS.Outros.HTMLViewer;
 import java.awt.Color;
-import java.io.FileNotFoundException;
+import java.awt.ScrollPane;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +19,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -32,26 +33,21 @@ public class Main extends javax.swing.JFrame {
     private DefaultTableModel dm1 = new DefaultTableModel(0, 0);
     protected List<Integer> lista = new ArrayList<>();
 
-    CalculoCustom b = new CalculoCustom();
-    Framework<CalculoCustom, Integer> framework;
+    Framework<Integer> framework;
 
     public Main() {
 
-        try {
-            this.framework = new Framework(b);
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            ex.printStackTrace();
-        }
+        this.framework = new Framework();
 
         initComponents();
         initJComponents();
-        initAttributes();
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grupoBotoes = new javax.swing.ButtonGroup();
         painelPai = new javax.swing.JPanel();
         telaMain = new javax.swing.JPanel();
         mainScrollPane = new javax.swing.JScrollPane();
@@ -69,8 +65,8 @@ public class Main extends javax.swing.JFrame {
         mainZerarValores = new javax.swing.JButton();
         mainImportarDados = new javax.swing.JButton();
         mainMedia = new javax.swing.JLabel();
-        mainModa = new javax.swing.JLabel();
         mainMediana = new javax.swing.JLabel();
+        mainExportar = new javax.swing.JButton();
         freqTablePanel = new javax.swing.JPanel();
         scrollFreqTable = new javax.swing.JScrollPane();
         freqTable = new javax.swing.JTable();
@@ -166,9 +162,14 @@ public class Main extends javax.swing.JFrame {
 
         mainMedia.setText("Média");
 
-        mainModa.setText("Moda");
-
         mainMediana.setText("Mediana");
+
+        mainExportar.setText("EXPORTAR");
+        mainExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mainExportarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout telaMainLayout = new javax.swing.GroupLayout(telaMain);
         telaMain.setLayout(telaMainLayout);
@@ -191,32 +192,25 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(mainAmplitude, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(mainDescricao)
                         .addComponent(mainMedia, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(mainModa, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(mainMediana, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
-                .addGroup(telaMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, telaMainLayout.createSequentialGroup()
-                        .addComponent(mainImportarDados)
-                        .addGap(18, 18, 18)
-                        .addComponent(mainZerarValores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(gerarTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mainScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(telaMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(telaMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, telaMainLayout.createSequentialGroup()
+                            .addComponent(mainImportarDados)
+                            .addGap(18, 18, 18)
+                            .addComponent(mainZerarValores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(gerarTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(mainScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(mainExportar))
                 .addGap(101, 101, 101))
         );
         telaMainLayout.setVerticalGroup(
             telaMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(telaMainLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
                 .addGroup(telaMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(telaMainLayout.createSequentialGroup()
-                        .addGroup(telaMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(mainImportarDados)
-                            .addComponent(mainZerarValores))
-                        .addGap(26, 26, 26)
-                        .addComponent(mainScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(gerarTabela))
-                    .addGroup(telaMainLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
                         .addComponent(mainAviso)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(telaMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,9 +223,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(mainDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(mainMedia, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mainModa, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(mainMediana, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                         .addComponent(mainAmplitude, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -239,8 +231,19 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(mainVariancia, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(mainDesvioPadrao, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(mainCoeficiente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(telaMainLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(mainExportar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mainCoeficiente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(telaMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mainImportarDados)
+                            .addComponent(mainZerarValores))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(mainScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(gerarTabela)))
                 .addGap(21, 21, 21))
         );
 
@@ -263,10 +266,13 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        grupoBotoes.add(pizza);
         pizza.setText("GRAFICO PIZZA");
 
+        grupoBotoes.add(linha);
         linha.setText("GRAFICO LINHA");
 
+        grupoBotoes.add(coluna);
         coluna.setText("GRAFICO COLUNA");
 
         gerarGrafico.setText("GERAR GRAFICO");
@@ -368,9 +374,6 @@ public class Main extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void initAttributes() {
-    }
-
     private void initMainComponents() {
         lista.clear();
         for (int i = dm1.getRowCount() - 1; i >= 0; i--) {
@@ -385,6 +388,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void initJComponents() {
+        grupoBotoes.setSelected(pizza.getModel(), true);
         mainAviso.setVisible(false);
 
         //Criando modelo de tabela (cabeçalho e alinhamento)
@@ -409,17 +413,17 @@ public class Main extends javax.swing.JFrame {
         framework.calculo.setDescricao(mainDescricao.getText());
         framework.setDados(lista);
         framework.realizarCalculo();
+        this.preencherLabels();
+    }
 
+    private void preencherLabels() {
         mainMedia.setText("Média: " + String.format("%1$,.2f", framework.calculo.getMedia()));
-        mainModa.setText("Moda: " + String.format("%1$,.2f", framework.calculo.getModa()));
         mainMediana.setText("Mediana: " + String.format("%1$,.2f", framework.calculo.getMediana()));
         mainAmplitude.setText("Amplitude total: " + String.format("%1$,.2f", framework.calculo.getAmplitude()));
         mainVariancia.setText("Variância: " + String.format("%1$,.2f", framework.calculo.getVariancia()));
         mainDesvioPadrao.setText("Desvio padrão: " + String.format("%1$,.2f", framework.calculo.getDesvioPadrao()));
         mainCoeficiente.setText("Coeficiente de variação: " + String.format("%1$,.2f", framework.calculo.getCoeficienteDeVariacao()) + "%");
-
     }
-
 
     private void mainAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainAddActionPerformed
         Pattern pattern = Pattern.compile("^\\d+$", Pattern.CASE_INSENSITIVE);
@@ -466,6 +470,11 @@ public class Main extends javax.swing.JFrame {
 
     private void mainImportarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainImportarDadosActionPerformed
         framework.importarCalculo();
+        this.initMainComponents();
+        this.preencherLabels();
+        for (int i = 0; i < framework.calculo.getDados().size(); i++) {
+            dm1.addRow(new Object[]{Double.parseDouble(String.valueOf(framework.calculo.getDados().get(i)))});
+        }
     }//GEN-LAST:event_mainImportarDadosActionPerformed
 
     private void mainZerarValoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainZerarValoresActionPerformed
@@ -486,7 +495,7 @@ public class Main extends javax.swing.JFrame {
             framework.tabela.setGrafico(new GraficoColuna());
         }
         try {
-            this.scrollgraphic.setViewportView(framework.html.generateHTML(framework.tabela.grafico.drawChart(framework.tabela.dtm), mainDescricao.getText()));
+            this.scrollgraphic.setViewportView(framework.html.generateHTML(framework.tabela.grafico.drawChart(framework.tabela.modeloTabela), mainDescricao.getText()));
         } catch (IOException ex) {
             ex.printStackTrace();
             return;
@@ -496,12 +505,18 @@ public class Main extends javax.swing.JFrame {
 
     private void gerarTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarTabelaActionPerformed
         this.freqTable.setModel(framework.gerarTabelaDeFreq());
+
         this.changePanel(freqTablePanel);
     }//GEN-LAST:event_gerarTabelaActionPerformed
 
     private void graphicVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphicVoltarActionPerformed
-        this.changePanel(telaMain);
+        this.changePanel(freqTablePanel);
+        scrollgraphic.remove(scrollgraphic.getViewport());
     }//GEN-LAST:event_graphicVoltarActionPerformed
+
+    private void mainExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mainExportarActionPerformed
+        this.framework.exportarCalculo(mainDescricao.getText(), "xml");
+    }//GEN-LAST:event_mainExportarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -546,6 +561,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton gerarTabela;
     private javax.swing.JPanel graphicPanel;
     private javax.swing.JButton graphicVoltar;
+    private javax.swing.ButtonGroup grupoBotoes;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JRadioButton linha;
     private javax.swing.JButton mainAdd;
@@ -556,10 +572,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel mainCoeficiente;
     private javax.swing.JTextField mainDescricao;
     private javax.swing.JLabel mainDesvioPadrao;
+    private javax.swing.JButton mainExportar;
     private javax.swing.JButton mainImportarDados;
     private javax.swing.JLabel mainMedia;
     private javax.swing.JLabel mainMediana;
-    private javax.swing.JLabel mainModa;
     private javax.swing.JScrollPane mainScrollPane;
     private javax.swing.JTable mainTabelaDados;
     private javax.swing.JLabel mainVariancia;

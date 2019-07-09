@@ -1,14 +1,15 @@
-package Bibliotecas.MVC.DTO;
+package BIBLIOTECAS.MVC.DTO;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author rodri
  */
-@XmlTransient()
+@XmlRootElement()
 public class Calculo {
 
     private List<Double> dados;
@@ -19,20 +20,21 @@ public class Calculo {
     private double variancia;
     private double desvioPadrao;
     private double coeficienteDeVariacao;
+    private String descricao;
 
     
     public Calculo() {
-
         dados = new ArrayList<>();
     }
-
-    public void addDado(double dado) {
-        dados.add(dado);
-    }
-
+    
+    /**
+     * Zera todos os atributos
+     */
     public void clearData() {
         dados.clear();
         media = 0;
+        mediana = 0;
+        moda = 0;
         amplitude = 0;
         variancia = 0;
         desvioPadrao = 0;
@@ -40,6 +42,10 @@ public class Calculo {
 
     }
 
+    
+    /**
+     * Realiza os calculos com base na lista e popula todos os atributos
+     */
     public void realizarCalculo() {
         double soma = 0;
         double maiorValor = 0;
@@ -57,6 +63,10 @@ public class Calculo {
             }
         }
         media = soma / dados.size();
+        if(dados.size() % 2 == 0){
+            mediana = (dados.get(dados.size() / 2) + dados.get(dados.size() / 2 - 1)) / 2;
+        }else
+            mediana = dados.get(dados.size() / 2);
         soma = 0;
         for (double d : this.dados) {
             soma += (d - media) * (d - media);
@@ -129,6 +139,15 @@ public class Calculo {
 
     public void setCoeficienteDeVariacao(double coeficienteDeVariacao) {
         this.coeficienteDeVariacao = coeficienteDeVariacao;
+    }
+    
+     public String getDescricao() {
+        return descricao;
+    }
+
+    @XmlElement()
+    public void setDescricao(String atribute) {
+        this.descricao = atribute;
     }
 
 }
