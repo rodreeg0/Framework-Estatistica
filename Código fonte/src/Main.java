@@ -67,6 +67,7 @@ public class Main extends javax.swing.JFrame {
         mainMedia = new javax.swing.JLabel();
         mainMediana = new javax.swing.JLabel();
         mainExportar = new javax.swing.JButton();
+        mainModa = new javax.swing.JLabel();
         freqTablePanel = new javax.swing.JPanel();
         scrollFreqTable = new javax.swing.JScrollPane();
         freqTable = new javax.swing.JTable();
@@ -171,6 +172,8 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        mainModa.setText("Moda");
+
         javax.swing.GroupLayout telaMainLayout = new javax.swing.GroupLayout(telaMain);
         telaMain.setLayout(telaMainLayout);
         telaMainLayout.setHorizontalGroup(
@@ -192,7 +195,8 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(mainAmplitude, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(mainDescricao)
                         .addComponent(mainMedia, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(mainMediana, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(mainMediana, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mainModa, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addGroup(telaMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(telaMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -221,17 +225,19 @@ public class Main extends javax.swing.JFrame {
                                 .addComponent(mainCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(mainDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(mainMedia, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mainModa, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(mainMediana, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(mainAmplitude, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(mainVariancia, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(mainDesvioPadrao, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(mainCoeficiente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(telaMainLayout.createSequentialGroup()
                         .addGap(9, 9, 9)
@@ -319,7 +325,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(gerarGrafico))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(coluna)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         painelPai.add(freqTablePanel, "card3");
@@ -352,7 +358,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(graphicVoltar)
-                .addGap(0, 17, Short.MAX_VALUE))
+                .addGap(0, 21, Short.MAX_VALUE))
         );
 
         painelPai.add(graphicPanel, "card4");
@@ -381,6 +387,8 @@ public class Main extends javax.swing.JFrame {
         }
         mainVariancia.setText("Variância");
         mainMedia.setText("Média");
+        mainModa.setText("Moda");
+        mainMediana.setText("Mediana");
         mainDescricao.setText("Informe o que está sendo calculado");
         mainDesvioPadrao.setText("Desvio padrão");
         mainCoeficiente.setText("Coeficiente");
@@ -418,6 +426,8 @@ public class Main extends javax.swing.JFrame {
 
     private void preencherLabels() {
         mainMedia.setText("Média: " + String.format("%1$,.2f", framework.calculo.getMedia()));
+        System.out.println(framework.calculo.getModa());
+        mainModa.setText("Moda: " + (framework.calculo.getModa() != 0.0 ? String.format("%1$,.2f",  framework.calculo.getModa()) : "Não há moda"));
         mainMediana.setText("Mediana: " + String.format("%1$,.2f", framework.calculo.getMediana()));
         mainAmplitude.setText("Amplitude total: " + String.format("%1$,.2f", framework.calculo.getAmplitude()));
         mainVariancia.setText("Variância: " + String.format("%1$,.2f", framework.calculo.getVariancia()));
@@ -505,7 +515,6 @@ public class Main extends javax.swing.JFrame {
 
     private void gerarTabelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarTabelaActionPerformed
         this.freqTable.setModel(framework.gerarTabelaDeFreq());
-
         this.changePanel(freqTablePanel);
     }//GEN-LAST:event_gerarTabelaActionPerformed
 
@@ -576,6 +585,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton mainImportarDados;
     private javax.swing.JLabel mainMedia;
     private javax.swing.JLabel mainMediana;
+    private javax.swing.JLabel mainModa;
     private javax.swing.JScrollPane mainScrollPane;
     private javax.swing.JTable mainTabelaDados;
     private javax.swing.JLabel mainVariancia;
