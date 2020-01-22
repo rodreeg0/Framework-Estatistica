@@ -1,4 +1,4 @@
-package BIBLIOTECAS.MVC.DTO;
+package Bibliotecas.MVC.DTO;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

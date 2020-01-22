@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BIBLIOTECAS.MVC.DAO;
+package Bibliotecas.MVC.DAO;
 
-import BIBLIOTECAS.MVC.DTO.Calculo;
+import Bibliotecas.MVC.DTO.Calculo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;

@@ -1,8 +1,8 @@
 
-import BIBLIOTECAS.MVC.BO.CalculoBO;
-import BIBLIOTECAS.MVC.DTO.Calculo;
-import BIBLIOTECAS.Outros.HTMLViewer;
-import BIBLIOTECAS.Outros.TabelaFrequencia;
+import Bibliotecas.MVC.BO.CalculoBO;
+import Bibliotecas.MVC.DTO.Calculo;
+import Bibliotecas.Outros.HTMLViewer;
+import Bibliotecas.Outros.TabelaFrequencia;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

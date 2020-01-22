@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BIBLIOTECAS.MVC.BO;
+package Bibliotecas.MVC.BO;
 
-import BIBLIOTECAS.MVC.DAO.CalculoDAOJSON;
-import BIBLIOTECAS.MVC.DAO.CalculoDAOXML;
-import BIBLIOTECAS.MVC.DAO.ICalculo;
-import BIBLIOTECAS.MVC.DTO.Calculo;
+import Bibliotecas.MVC.DAO.CalculoDAOJSON;
+import Bibliotecas.MVC.DAO.CalculoDAOXML;
+import Bibliotecas.MVC.DAO.ICalculo;
+import Bibliotecas.MVC.DTO.Calculo;
 
 /**
  *
